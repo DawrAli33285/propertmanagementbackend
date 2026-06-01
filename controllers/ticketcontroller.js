@@ -2,6 +2,7 @@ const Ticket = require('../models/Ticket');
 const ContractorAssignment = require('../models/Contractorssignment');
 const User = require('../models/User');
 const Contractor = require('../models/Contractor');
+const Tenant = require('../models/Tenant');
 
 // @desc    Get all tickets
 // @route   GET /api/tickets
@@ -57,6 +58,7 @@ const getTicketsByProperty = async (req, res) => {
 // @route   GET /api/tickets/tenant/:tenantId
 const getTicketsByTenant = async (req, res) => {
   try {
+    console.log(req.params)
     const tickets = await Ticket.find({ tenant_id: req.params.tenantId })
       .populate('tenant_id')
       .populate('property_id')
@@ -74,8 +76,8 @@ const getTicketsByTenant = async (req, res) => {
 const getTicketsByContractor = async (req, res) => {
   try {
  
-    const user=await User.findById(req.params.contractorId)
-    const contractor = await Contractor.findOne({email:user.email});
+   
+    const contractor = await Contractor.findById(req.params.contractorId)
    
     const tickets = await Ticket.find({ assigned_contractor_id: contractor._id })
       .populate('tenant_id')
@@ -131,6 +133,7 @@ const createTicket = async (req, res) => {
       trade_type: issue_type,
     }).sort({ priority_order: 1 });
 
+  
     const ticket = await Ticket.create({
       ticket_number,
       tenant_id,

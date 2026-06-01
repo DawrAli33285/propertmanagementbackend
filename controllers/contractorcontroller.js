@@ -17,8 +17,8 @@ const getContractors = async (req, res) => {
 const getContractorById = async (req, res) => {
   try {
 
-const user=await User.findById(req.params.id)
-    const contractor = await Contractor.findOne({email:user.email});
+
+    const contractor = await Contractor.findById(req.params.id);
    
     if (!contractor) {
       return res.status(404).json({ message: 'Contractor not found' });
@@ -76,8 +76,8 @@ const updateContractor = async (req, res) => {
   try {
     const { company_name, contact_name, phone, email, trade_type, service_area, status } = req.body;
 
-    const user=await User.findById(req.params.id)
-    const contractor = await Contractor.findOne({email:user.email});
+    
+    const contractor = await Contractor.findById(req.params.id)
     if (!contractor) {
       return res.status(404).json({ message: 'Contractor not found' });
     }
@@ -131,8 +131,8 @@ const adminUpdateContractor = async (req, res) => {
 // @route   DELETE /api/contractors/:id
 const deleteContractor = async (req, res) => {
   try {
-    const user=await User.findById(req.params.id)
-    const contractor = await Contractor.findOne({email:user.email});
+ 
+    const contractor = await Contractor.findById(req.params.id)
     if (!contractor) {
       return res.status(404).json({ message: 'Contractor not found' });
     }

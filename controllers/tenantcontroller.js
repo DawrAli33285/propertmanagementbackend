@@ -21,7 +21,7 @@ const getTenantById = async (req, res) => {
   console.log("CALLING GET TENANT BY ID")
   try {
     
-    const tenant = await Tenant.findOne({user_id:req.params.id})
+    const tenant = await Tenant.findById(req.params.id)
       .populate('user_id', '-password')
       .populate('property_id')
       .populate('unit_id');
